@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
-import android.transition.Fade;
+import android.transition.AutoTransition;
 import android.transition.Transition;
 import android.util.Pair;
 import android.view.View;
@@ -25,13 +25,12 @@ public class MainActivity extends FragmentActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+		getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
-		Transition transition = new Fade();
-		transition.excludeTarget(android.R.id.statusBarBackground, true);
-		transition.excludeTarget(android.R.id.navigationBarBackground, true);
-		getWindow().setEnterTransition(transition);
-		getWindow().setExitTransition(transition);
+		Transition transition = new AutoTransition();
+		getWindow().setSharedElementEnterTransition(transition);
+		getWindow().setSharedElementExitTransition(transition);
+
 
 		setContentView(R.layout.main_activity);
 		Button parkingButton = (Button) findViewById(R.id.parking_button);
@@ -47,19 +46,18 @@ public class MainActivity extends FragmentActivity
 			final Place place = PlacePicker.getPlace(data, this);
 
 			final CharSequence name = place.getName();
-
-			Pair<View, String> pair = new Pair<>(findViewById(R.id.parking_button), "location");
-			ActivityOptions.makeSceneTransitionAnimation(this, pair);
+			((Button)findViewById(R.id.parking_button)).setText(name);
 
 			new Handler().postDelayed(new Runnable()
 			{
 				@Override
 				public void run()
 				{
+					Pair<View, String> pair = new Pair<>(findViewById(R.id.parking_button), getString(R.string.location_transition));
+					Bundle options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pair).toBundle();
 					Intent intent = new Intent(MainActivity.this, ParkingAvailabilityActivity.class);
 					intent.putExtra(ParkingAvailabilityActivity.LOCATION, name);
-					startActivity(intent);
-					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+					startActivity(intent, options);
 				}
 			}, 2000);
 		}

@@ -3,7 +3,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:transitionName="location"
+        android:transitionName="@string/location_transition"
         android:elevation="4dp"
         android:text="Select a parking lot"
         android:textSize="20sp"
