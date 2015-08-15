@@ -35,7 +35,9 @@ public class MainActivity extends FragmentActivity
 			final Place place = PlacePicker.getPlace(data, this);
 
 			final CharSequence name = place.getName();
-			parkingButton.setText(name);
+			Intent intent = new Intent(this, ParkingAvailabilityActivity.class);
+			intent.putExtra(ParkingAvailabilityActivity.LOCATION, name);
+			startActivity(intent);
 		}
 		else
 			super.onActivityResult(requestCode, resultCode, data);
