@@ -1,10 +1,16 @@
 package au.com.parktime;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.util.Pair;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -15,14 +21,20 @@ public class MainActivity extends FragmentActivity
 {
 	private static final int PICKER_CODE = 1234;
 
-	private Button parkingButton;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+
+		Transition transition = new Fade();
+		transition.excludeTarget(android.R.id.statusBarBackground, true);
+		transition.excludeTarget(android.R.id.navigationBarBackground, true);
+		getWindow().setEnterTransition(transition);
+		getWindow().setExitTransition(transition);
+
 		setContentView(R.layout.main_activity);
-		parkingButton = (Button) findViewById(R.id.parking_button);
+		Button parkingButton = (Button) findViewById(R.id.parking_button);
 		parkingButton.setOnClickListener(new ParkingClickListener());
 	}
 
@@ -35,9 +47,21 @@ public class MainActivity extends FragmentActivity
 			final Place place = PlacePicker.getPlace(data, this);
 
 			final CharSequence name = place.getName();
-			Intent intent = new Intent(this, ParkingAvailabilityActivity.class);
-			intent.putExtra(ParkingAvailabilityActivity.LOCATION, name);
-			startActivity(intent);
+
+			Pair<View, String> pair = new Pair<>(findViewById(R.id.parking_button), "location");
+			ActivityOptions.makeSceneTransitionAnimation(this, pair);
+
+			new Handler().postDelayed(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					Intent intent = new Intent(MainActivity.this, ParkingAvailabilityActivity.class);
+					intent.putExtra(ParkingAvailabilityActivity.LOCATION, name);
+					startActivity(intent);
+					overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+				}
+			}, 2000);
 		}
 		else
 			super.onActivityResult(requestCode, resultCode, data);
