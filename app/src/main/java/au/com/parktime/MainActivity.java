@@ -1,86 +1,64 @@
 package au.com.parktime;
 
-import android.location.Location;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
+import android.view.View;
+import android.widget.Button;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
-public class MainActivity extends FragmentActivity implements GoogleMap.OnMyLocationChangeListener
+public class MainActivity extends FragmentActivity
 {
-	private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-	private boolean shownUserLocation;
+	private static final int PICKER_CODE = 1234;
+
+	private Button parkingButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
-		setUpMapIfNeeded();
+		parkingButton = (Button) findViewById(R.id.parking_button);
+		parkingButton.setOnClickListener(new ParkingClickListener());
 	}
 
 	@Override
-	protected void onResume()
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		super.onResume();
-		setUpMapIfNeeded();
+		if(resultCode == Activity.RESULT_OK && requestCode == PICKER_CODE)
+		{
+			// The user has selected a place. Extract the name and address.
+			final Place place = PlacePicker.getPlace(data, this);
+
+			final CharSequence name = place.getName();
+			parkingButton.setText(name);
+		}
+		else
+			super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	/**
-	 * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-	 * installed) and the map has not already been instantiated.. This will ensure that we only ever
-	 * call {@link #setUpMap()} once when {@link #mMap} is not null.
-	 * <p/>
-	 * If it isn't installed {@link SupportMapFragment} (and
-	 * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-	 * install/update the Google Play services APK on their device.
-	 * <p/>
-	 * A user can return to this FragmentActivity after following the prompt and correctly
-	 * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-	 * have been completely destroyed during this process (it is likely that it would only be
-	 * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-	 * method in {@link #onResume()} to guarantee that it will be called.
-	 */
-	private void setUpMapIfNeeded()
+	private class ParkingClickListener implements View.OnClickListener
 	{
-		// Do a null check to confirm that we have not already instantiated the map.
-		if(mMap == null)
+		@Override
+		public void onClick(View v)
 		{
-			// Try to obtain the map from the SupportMapFragment.
-			mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-			// Check if we were successful in obtaining the map.
-			if(mMap != null)
+			// Construct an intent for the place picker
+			try
 			{
-				setUpMap();
+				PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+				Intent intent = intentBuilder.build(MainActivity.this);
+				// Start the intent by requesting a result,
+				// identified by a request code.
+				startActivityForResult(intent, PICKER_CODE);
+			}
+			catch(GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e)
+			{
+				//...
 			}
 		}
-	}
-
-	/**
-	 * This is where we can add markers or lines, add listeners or move the camera.
-	 * This should only be called once and when we are sure that {@link #mMap} is not null.
-	 */
-	private void setUpMap()
-	{
-		mMap.setMyLocationEnabled(true);
-		mMap.setOnMyLocationChangeListener(this);
-	}
-
-	@Override
-	public void onMyLocationChange(Location location)
-	{
-		if(shownUserLocation)
-			return;
-
-		LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-		CameraPosition position = new CameraPosition(userLocation, 15, 0, 0);
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(position);
-		mMap.animateCamera(cameraUpdate);
-
-		shownUserLocation = true;
 	}
 }

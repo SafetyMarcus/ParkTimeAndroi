@@ -1,7 +1,17 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/map"
-          tools:context=".MainActivity"
-          android:name="com.google.android.gms.maps.SupportMapFragment"/>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="@android:color/white">
+
+    <Button
+        android:id="@+id/parking_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:elevation="4dp"
+        android:text="Select a parking lot"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackground"/>
+
+</RelativeLayout>
