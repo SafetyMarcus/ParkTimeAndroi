@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
@@ -32,23 +33,15 @@ public class MainActivity extends FragmentActivity
 		if(resultCode == Activity.RESULT_OK && requestCode == PICKER_CODE)
 		{
 			// The user has selected a place. Extract the name and address.
-			final Place place = PlacePicker.getPlace(data, this);
-
-			final CharSequence name = place.getName();
+			Place place = PlacePicker.getPlace(data, this);
+			CharSequence name = place.getName();
 			((TextView) findViewById(R.id.parking_text)).setText(name);
 
-			new Handler().postDelayed(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					Bundle options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, findViewById(R.id.parking_text),
-							getString(R.string.location_transition)).toBundle();
-					Intent intent = new Intent(MainActivity.this, ParkingAvailabilityActivity.class);
-					intent.putExtra(ParkingAvailabilityActivity.LOCATION, name);
-					startActivity(intent, options);
-				}
-			}, 2000);
+			Bundle options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, findViewById(R.id.parking_text),
+					getString(R.string.location_transition)).toBundle();
+			Intent intent = new Intent(MainActivity.this, ParkingAvailabilityActivity.class);
+			intent.putExtra(ParkingAvailabilityActivity.LOCATION, name);
+			startActivity(intent, options);
 		}
 		else
 			super.onActivityResult(requestCode, resultCode, data);
@@ -59,13 +52,6 @@ public class MainActivity extends FragmentActivity
 		@Override
 		public void onClick(View v)
 		{
-			Bundle options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, findViewById(R.id.parking_text),
-					getString(R.string.location_transition)).toBundle();
-			Intent intent = new Intent(MainActivity.this, ParkingAvailabilityActivity.class);
-			intent.putExtra(ParkingAvailabilityActivity.LOCATION, "Townsville");
-//			startActivity(intent);
-			startActivity(intent, options);
-			/*
 			// Construct an intent for the place picker
 			try
 			{
@@ -79,7 +65,6 @@ public class MainActivity extends FragmentActivity
 			{
 				//...
 			}
-			*/
 		}
 	}
 }
