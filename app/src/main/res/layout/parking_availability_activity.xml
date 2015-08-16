@@ -15,15 +15,24 @@
         android:gravity="center"/>
 
     <Button
+        android:id="@+id/parking_available"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:transitionName="@string/parking_available_transition"
+        android:text="Yes"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
         android:background="@drawable/green_selector"/>
 
     <Button
+        android:id="@+id/parking_unavailable"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:transitionName="@string/parking_unavailable_transition"
+        android:text="No"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
         android:background="@drawable/red_selector"/>
-
 </LinearLayout>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="red">#E80000</color>
+    <color name="red_accent">#BF0000</color>
     <color name="green">#05B005</color>
+    <color name="green_accent">#047504</color>
     <color name="accent">#B5B5B5</color>
 </resources>
