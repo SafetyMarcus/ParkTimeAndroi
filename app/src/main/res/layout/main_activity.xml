@@ -4,12 +4,15 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/white_selector">
 
+    <include layout="@layout/toolbar"/>
+
     <TextView
         android:id="@+id/parking_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:transitionName="@string/location_transition"
         android:layout_centerInParent="true"
+        android:layout_marginTop="?attr/actionBarSize"
         android:clickable="false"
         android:text="Select a parking lot"
         android:textSize="20sp"
