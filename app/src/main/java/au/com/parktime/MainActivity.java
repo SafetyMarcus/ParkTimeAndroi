@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,7 +12,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
 {
 	private static final int PICKER_CODE = 1234;
 
@@ -24,9 +22,7 @@ public class MainActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main_activity);
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-		setTitle("ParkTime");
+		setUpToolbar("ParkTime", false);
 
 		RelativeLayout parkingButton = (RelativeLayout) findViewById(R.id.parking_button);
 		parkingButton.setOnClickListener(new ParkingClickListener());
