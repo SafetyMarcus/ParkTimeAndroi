@@ -7,9 +7,10 @@
     <include layout="@layout/toolbar"/>
 
     <LinearLayout
+        android:id="@+id/info_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:transitionName="@string/parking_unavailable_transition"
+        android:transitionName="@string/parking_available_transition"
         android:background="@color/red">
 
         <TextView

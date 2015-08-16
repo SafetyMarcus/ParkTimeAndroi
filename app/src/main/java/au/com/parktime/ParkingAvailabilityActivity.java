@@ -50,8 +50,10 @@ public class ParkingAvailabilityActivity extends BaseActivity
 		public void onClick(View v)
 		{
 			Bundle options = ActivityOptions.makeSceneTransitionAnimation(ParkingAvailabilityActivity.this, parkingUnavailable,
-					getString(R.string.parking_unavailable_transition)).toBundle();
-			Intent intent = new Intent(ParkingAvailabilityActivity.this, ParkingUnavailableActivity.class);
+					getString(R.string.parking_available_transition)).toBundle();
+			Intent intent = new Intent(ParkingAvailabilityActivity.this, ParkingInfoActivity.class);
+			intent.putExtra(ParkingInfoActivity.COLOUR, getResources().getColor(R.color.red));
+			intent.putExtra(ParkingInfoActivity.INFO, "That Sucks!\nThanks for reporting");
 			startActivity(intent, options);
 		}
 	}

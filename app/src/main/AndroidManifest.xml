@@ -36,6 +36,6 @@
         </activity>
         <activity android:name=".ParkingAvailabilityActivity"/>
         <activity android:name=".ParkingAvailableActivity"/>
-        <activity android:name=".ParkingUnavailableActivity"/>
+        <activity android:name=".ParkingInfoActivity"/>
     </application>
 </manifest>

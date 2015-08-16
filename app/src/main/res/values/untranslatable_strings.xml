@@ -14,5 +14,4 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
 
     <string name="location_transition" translatable="false" templateMergeStrategy="preserve">location</string>
     <string name="parking_available_transition">parking_available</string>
-    <string name="parking_unavailable_transition">parking_unavailable</string>
 </resources>

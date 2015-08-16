@@ -27,6 +27,7 @@
             android:text="So like..."/>
 
         <Button
+            android:id="@+id/heaps"
             android:layout_width="match_parent"
             android:layout_height="92dp"
             android:textColor="@android:color/white"
@@ -46,6 +47,7 @@
             android:text="Or"/>
 
         <Button
+            android:id="@+id/few"
             android:layout_width="match_parent"
             android:layout_height="92dp"
             android:textColor="@android:color/white"
