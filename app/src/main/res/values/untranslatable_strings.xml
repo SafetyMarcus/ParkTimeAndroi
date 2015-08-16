@@ -12,6 +12,9 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     -->
     <string name="google_api_key" translatable="false" templateMergeStrategy="preserve">AIzaSyDgDY_z1c0VFLD8PQ8TRcHfMO382yCDjms</string>
 
+    <string name="parse_app_id" translatable="false" templateMergeStrategy="preserve">WZery3bX22hDuqAtm2iKMdV3OhQTMgDUWuJFdsol</string>
+    <string name="parse_client_key" translatable="false" templateMergeStrategy="preserve">TIeG7lB3CTen0bmxo5FkXjqKMD7Fd9QHXKSznSA8</string>
+
     <string name="location_transition" translatable="false" templateMergeStrategy="preserve">location</string>
     <string name="parking_available_transition">parking_available</string>
 </resources>
