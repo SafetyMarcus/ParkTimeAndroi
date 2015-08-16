@@ -1,11 +1,18 @@
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/parking_button"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/parking_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_selector">
+
+    <TextView
+        android:id="@+id/parking_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
         android:transitionName="@string/location_transition"
-        android:elevation="4dp"
+        android:layout_centerInParent="true"
+        android:clickable="false"
         android:text="Select a parking lot"
         android:textSize="20sp"
-        android:gravity="center"
-        android:background="@drawable/white_selector"/>
+        android:background="@android:color/transparent"
+        android:gravity="center"/>
+</RelativeLayout>
