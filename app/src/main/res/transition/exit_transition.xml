@@ -6,5 +6,10 @@
             <target android:excludeId="@android:id/navigationBarBackground"/>
         </targets>
     </slide>
-    <autoTransition/>
+    <autoTransition>
+        <targets>
+            <target android:excludeId="@android:id/statusBarBackground"/>
+            <target android:excludeId="@android:id/navigationBarBackground"/>
+        </targets>
+    </autoTransition>
 </transitionSet>
