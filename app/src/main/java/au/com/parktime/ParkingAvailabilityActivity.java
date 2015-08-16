@@ -24,7 +24,7 @@ public class ParkingAvailabilityActivity extends BaseActivity
 		setContentView(R.layout.parking_availability_activity);
 		String location = getIntent().getExtras().getString(LOCATION);
 		((TextView) findViewById(R.id.location)).setText(location);
-		setUpToolbar("Availability", true);
+		setUpToolbar("Are there any parks", true);
 
 		parkingAvailable = (Button) findViewById(R.id.parking_available);
 		parkingAvailable.setOnClickListener(new ParkingAvailableListener());
