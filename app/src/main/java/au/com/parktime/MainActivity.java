@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ public class MainActivity extends BaseActivity
 		setContentView(R.layout.main_activity);
 		setUpToolbar("ParkTime", false);
 
-		RelativeLayout parkingButton = (RelativeLayout) findViewById(R.id.parking_button);
+		View parkingButton = findViewById(R.id.parking_button);
 		parkingButton.setOnClickListener(new ParkingClickListener());
 	}
 
@@ -64,7 +65,7 @@ public class MainActivity extends BaseActivity
 			}
 			catch(GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e)
 			{
-				//...
+				Snackbar.make(v, "You don't seem to have access to google play services", Snackbar.LENGTH_LONG).show();
 			}
 		}
 	}
